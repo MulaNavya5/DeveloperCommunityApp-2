@@ -25,49 +25,40 @@ public class ResponseController {
 	public String addResponse (@RequestBody Response response) { 
 		return responseService.addResponse(response);
 	}
+	
 	@PutMapping("/editAccuracy/{id}/{accuracy}")
-	public List<Response> editAccuracy(@PathVariable("id") int respId, @PathVariable("accuracy") int accuracy)
+	public Response editAccuracy(@PathVariable("id") int respId, @PathVariable("accuracy") int accuracy)
 	{
 
 		return responseService.editAccuracy(respId, accuracy);
 	}
 	
-	@PutMapping("/likeResponse/{id}")
-	public List<Response> likeResponse(@PathVariable("id") int respId)
+	
+	@GetMapping(value= "/likeResponse/{id}/{accuracy}")
+	public  List<Response> likeResponse(@PathVariable("id") int respId,@PathVariable("accuracy") int accuracy)
 	{
-		return responseService.likeresponse(respId);
+		return responseService.likeResponse(respId,accuracy);
 	}
 	
-	@PutMapping("/removeResponse/{id}")
-	public List<Response>removeResponse(@PathVariable("id") int respId)
-	{
-		return responseService.removeresponse(respId);
-	}
-	
-	
-	@GetMapping(value= "/getResponse/{id}")
-	public  Response getResponse(@PathVariable("id") int respId)
-	{
-		return responseService.getById(respId);
-	}
 	
 	@DeleteMapping("/deleteResponse/{id}")
-	public List<Response> deleteResponse(@PathVariable("id") int respId){
+	public List<Response> deleteResponse(@PathVariable("id") int respId)
+	{
 		return responseService.deleteResponse(respId);
 	}
 	
-	/*@GetMapping("/getByDevId/{id}")
-	public List<Response> getFeedsByDeveloper(@PathVariable("id") int respId)
+	
+/*	@GetMapping("/getByDevId/{id}")
+	public Optional<Response> getFeedsByDeveloper(@PathVariable("id") int respId)
 	{
-		return responseService.getResponseByDeveloper(respId);
+		return responseService.getFeedsByDeveloper(respId);
 	}
 	
-	@GetMapping("/getByFeed/{feedId}")
-	public Optional<Response> getFeedsByFeed(@PathVariable("id")int respId )
+	
+	@GetMapping("/getByFeedId/{id}")
+	public Optional<Response> getFeedsByFeed(@PathVariable("id") int respId)
 	{
-		return responseService.getResponseByFeed(respId);
+		return responseService.getFeedsByFeed(respId);
 	}*/
+	
 }
-	
-
-	

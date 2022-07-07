@@ -14,6 +14,7 @@ public class ResponseService {
 
 	@Autowired
 	private ResponseRepository responserepository;
+	private Integer respId;
 	
 	public String addResponse(Response response)
 	{
@@ -21,60 +22,44 @@ public class ResponseService {
 		return "Response added";
 	}
 	
-	public List<Response> editAccuracy(int rcode, int accuracy)
-	{
-		if(!responserepository.existsById(rcode))
-		{
+
+	public Response editAccuracy(int respId,int accuracy) {
+		Response response =responserepository.findById(respId).get();
+		response.setAccuracy(accuracy);
+		return responserepository.save(response);
+	}
+	public List<Response> likeResponse(int respId, int accuracy){
+		if(!responserepository.existsById(respId)) {
 			throw new ResponseNotFoundException();
-			
 		}
-		Response response= responserepository.findById(rcode).get();
-	    response.setAccuracy(accuracy);
-		responserepository.flush();
-		return responserepository.findAll();
-	}
-
-	public List<Response> likeresponse(int respId) {
-		return responserepository.findAll();
-
-	
-	}
-	public Response getById(int respId) {
-		return responserepository.findById(respId).get();
-
-		  
-	}
-
-	public List<Response> deleteById(int respId) {
-		 responserepository.deleteById(respId);
-		 return responserepository.findAll();
-	 }
-	
-	
-
-	public Optional<Response> getResponseByDeveloper(int respId) {
-		 return responserepository.findById(respId);
-
-	
-	}
-
-	public Optional<Response> getResponseByFeed(int respId) {
-		 return responserepository.findById(respId);
-
-	
-	}
-
-	public List<Response> removeresponse(int respId) {
-		return responserepository.findAll();
-
 		
+	    Response response = responserepository.findById(respId).get();
+	    response.setAccuracy(accuracy);
+	    return responserepository.findAll();
 	}
-	
-	
-	
 
-	 
+	
+	public List<Response> deleteResponse(int respId) {
+		responserepository.deleteById(respId);
+		return responserepository.findAll();
+
 }
 
-		
+	/*public Optional<Response> getFeedsByDeveloper(int devId) {
+		return responserepository.findById(devId);
 
+	}
+
+	public Optional<Response> getFeedsByFeed(int feedId) {
+		return responserepository.findById(feedId);
+	}*/
+
+	
+
+	
+	}
+
+
+
+	
+	
